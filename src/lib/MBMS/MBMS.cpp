@@ -19,6 +19,7 @@
  *   space
  */
 void manifoldBlurringMeanShift(vector<vector<float>> &data,
+			       size_t dim,
 			       size_t iter,
 			       float radius,
 			       float sigma,
@@ -27,17 +28,16 @@ void manifoldBlurringMeanShift(vector<vector<float>> &data,
   cout << "Running the Manifold Blurring Mean Shift algorithm on "
        << data.size() << " data points\n\n";
   srand(random_device()());
+  
   for (size_t i = 0; i < iter; ++i)
   {
-    size_t D = data[0].size();
-
     // initialise k-d trees for neighbour search
-    KNN_kd_tree KNN(D, data, 10 /* max leaf */);
+    KNN_kd_tree KNN(dim, data, 10 /* max leaf */);
     KNN.index->buildIndex();
 
     // temporary storage for updated data
     vector<vector<float>> dataOut;
-    dataOut.assign(data.size(), vector<float>(D, 0));
+    dataOut.assign(data.size(), vector<float>(dim, 0));
 
     for (size_t idx = 0; idx < data.size(); ++idx)
     {

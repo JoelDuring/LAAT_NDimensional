@@ -6,6 +6,7 @@
 #include <iosfwd>
 
 void manifoldBlurringMeanShift(std::vector<std::vector<float>> &data,
+			       size_t dim = 3,
 			       size_t iter = 10,
 			       float radius = 0.5,
 			       float sigma = 0.25,

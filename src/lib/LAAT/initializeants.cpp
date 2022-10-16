@@ -4,13 +4,13 @@
  * choose the initial points so that their neighborhood size is bigger
  * or equal to the median number of neighbors.
  *
- * @param data vector containing all data points
- * @param ants vector of ants to choose the initial points for
+ * @param neighbourhoods vector containing the neighboorhoods for all data
+ *   points
  * @param gd vector containing the sector number for each data point
  * @param medianvalue the median number of neighbors over all data points
  * @param antLocations vector to store the initial locations in
  */
-void initializeAnts(vector<vector<unsigned int>> const &neighbourhoods,
+void initializeAnts(vector<unsigned int> const &neighbours,
 		    vector<unsigned int> const &gd,
 		    size_t medianvalue,
   		    vector<unsigned int> &antLocations)
@@ -24,15 +24,16 @@ void initializeAnts(vector<vector<unsigned int>> const &neighbourhoods,
     initialize the ants corresponding to this region with
     random suitable datapoints from other sectors.
   */
-  while (initializedAnts < antLocations.size() && iter < neighbourhoods.size())
+  while (initializedAnts < antLocations.size() && iter < neighbours.size())
   {
-    size_t currentPos = rand() % neighbourhoods.size();
+    size_t currentPos = rand() % neighbours.size();
 
-    if (neighbourhoods[currentPos].size() > medianvalue
+    if (neighbours[currentPos] > medianvalue
 	&& !assigned[gd[currentPos]])
     {
       antLocations[gd[currentPos]] = currentPos;
       ++initializedAnts;
+      assigned[gd[currentPos]] = true;
     }
 
     ++iter;
@@ -44,7 +45,7 @@ void initializeAnts(vector<vector<unsigned int>> const &neighbourhoods,
     {
       if (!assigned[j])
 	do
-	  antLocations[j] = rand() % neighbourhoods.size();
-	while (neighbourhoods[antLocations[j]].size() <= medianvalue);
+	  antLocations[j] = rand() % neighbours.size();
+	while (neighbours[antLocations[j]] <= medianvalue);
     }
 }

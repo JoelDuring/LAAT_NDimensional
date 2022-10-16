@@ -14,16 +14,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_FLAGS "-O2 -Wall -fPIC")
 
 add_library(laatlib
-    src/lib/LAAT/antsearch.cpp
     src/lib/LAAT/evaporatepheromone.cpp
-    src/lib/LAAT/groupdata.cpp
     src/lib/LAAT/initializeants.cpp
-    src/lib/LAAT/LAAT.cpp
     src/lib/LAAT/lostants.cpp
-    src/lib/LAAT/preprocess.cpp
     src/lib/LAAT/printwarning.cpp
     src/lib/LAAT/progressbar.cpp
-    src/lib/LAAT/rangesearch.cpp
+    src/lib/LAAT/median.cpp
 
     src/lib/MBMS/denoise.cpp
     src/lib/MBMS/dimensionalityapproximation.cpp

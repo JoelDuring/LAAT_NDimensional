@@ -8,9 +8,7 @@ data = pd.read_csv('exampleDataSet.csv', header=None).to_numpy()
 # run the LAAT algorithm on the collected data with the specified
 # hyper-parameter values, store the resulting pheromone
 pheromone = laat.LAAT(data,
-                      numberOfAntsX=4,
-                      numberOfAntsY=5,
-                      numberOfAntsZ=5,
+                      ants=[4, 5, 5],
                       numberOfIterations=100,
                       numberOfSteps=2500,
                       threshold=3,
@@ -20,7 +18,8 @@ pheromone = laat.LAAT(data,
                       p_release=0.05,
                       evapRate=0.05,
                       lowerlimit=0.0001,
-                      upperlimit=10)
+                      upperlimit=10,
+                      showProgress=True)
 
 threshold = 0.7  # pheromone threshold
 

@@ -1,3 +1,8 @@
+# N-Dimensional LAAT
+This project is a fork of the original LAAT repository. It adds two additional features:
+1. Adds support for the use of LAAT in any dimension using C++ template functions. When using the python bindings this is limited to 3-15 dimensions, but support for more can be added.
+2. The (quadratic) memory usage of the LAAT algorithm can be restricted or eliminated by setting a memory limit. This will result in longer running times.
+
 # Installation
 To install this module from source, you will need to install a suitable C++ compiler and CMake. Any other external dependencies of this project are included as git submodules and they must be initialized when this repository is cloned:
 
@@ -30,6 +35,14 @@ python example.py
 
 To adapt this example to your data, fit the relevant functions into your data processing pipeline, or store your data in a csv file and load it into python as shown in the example. Tweak the hyper-parameters for both LAAT and MBMS to fit your dataset. Use the result of MBMS for further data processing, or write it straight to a csv file as shown in the example.
 
+## N-Dimensional data
+When using the Python module, higher-dimensional data can be run by using the corresponding function, for example: `laat.LAAT4(...)` for data in four dimensions.
+
+## Limiting memory usage
+The standard LAAT algorithm has a quadratic space complexity. For large datasets, the memory usage is often too high. Most of this memory is used to store local neighbourhoods to speed up computation.
+
+The memory usage of the algorithm can be limited by setting the `memoryLimit` hyperparameter. This is used to control the amount of memory used for the storing of local neighbourhoods in Gigabytes. This will result in a longer running time of the algorithm. For most applications, limiting the memory to zero Gigabytes will double the computation time. When no memory limit is specified, the algorithm will store all local neighbourhoods to optimize running time.
+
 # Compiling from source
 You can choose to build this module from source as a static C++ library for use in C++ projects. To do so, create a build directory and run CMake:
 
@@ -41,13 +54,6 @@ make
 ```
 
 Now the build directory will create both the static C++ library file `liblaatlib.a` and the Python module binary file `laat.cpython`.
-
-# Matlab
-You don't need to install anything to use Matlab functions. The code written in Matlab is standalone, however, it is also much slower than python and C++ code. We don't recommend to use Matlab code for a dataset larger than 100,000 samples. You first need to run the "preprocessing" and then use that as an input for "LAAT".
-```Matlab
-pstruct = PreprocessLAAT(Data,'Radius',0.5,'Threshold',3)
-pheromone = LAAT(pstruct,'Option','option.mat')
-```
 
 # Parameter configuration
 To understand the role of each parameter, we highly suggest reading our paper as cited in the following. In summary, there are some rules of thumb and points one should consider when setting the parameters. We discuss each of them individually as follows.

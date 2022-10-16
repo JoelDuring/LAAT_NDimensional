@@ -5,8 +5,8 @@
  * points, do no let pheromone rise above the upper limit or fall below the
  * lower limit.
  *
- * @param data    vector containing the data points to apply evaporation of 
- *                pheromones to.
+ * @param pheromone vector containing the pheromone values to apply evaporation
+ *   to
  * @param evapRate rate at which to evaporate pheromone after each application
  *   of ant search
  * @param lowerlimit lower limit on the amount of pheromone of a data point
